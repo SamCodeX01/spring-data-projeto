@@ -25,5 +25,13 @@ public class Cargo {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public String toString() {
+        return "Cargo{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                '}';
+    }
 }
 
