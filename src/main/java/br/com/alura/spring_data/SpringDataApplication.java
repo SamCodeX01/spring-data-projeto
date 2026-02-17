@@ -12,7 +12,7 @@ import java.util.Scanner;
 @SpringBootApplication// Varre a aplicação e lê todas as Annotations que tem dentro da aplicação
 public class SpringDataApplication implements CommandLineRunner { //SpringDataApplication faz com que o framework do Spring seja inicializado junto a aplicação.
 
-	private final CrudCargoService cargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não possa ser alterada posteriormente.
+	private final CrudCargoService cargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não pode ser alterada posteriormente.
 	private Boolean system = true;
 
 	public SpringDataApplication(CrudCargoService cargoService){
@@ -32,7 +32,7 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 		while(system){
 			System.out.println("Qual ação você quer executar: ");
 			System.out.print("0 - Sair: \n");
-			System.out.print("1 - Cargo: \n");
+			System.out.print("1 - Cargo: ");
 
 			int action = scanner.nextInt();
 
@@ -41,7 +41,6 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 			}else {
 				system = false;
 			}
-
 		}
 
 	}
