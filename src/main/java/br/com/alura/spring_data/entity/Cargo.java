@@ -1,4 +1,4 @@
-package br.com.alura.spring_data.orm;
+package br.com.alura.spring_data.entity;
 
 import jakarta.persistence.*;
 
