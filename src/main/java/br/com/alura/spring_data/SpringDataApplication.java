@@ -2,6 +2,7 @@ package br.com.alura.spring_data;
 
 import br.com.alura.spring_data.service.CrudCargoService;
 import br.com.alura.spring_data.service.CrudFuncionarioService;
+import br.com.alura.spring_data.service.Metodos;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,13 +14,13 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 
 	//Atributos
 	private Boolean system = true;
-	private final CrudCargoService cargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não pode ser alterada posteriormente.
+	private final CrudCargoService crudCargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não pode ser alterada posteriormente.
 	private final CrudFuncionarioService funcionarioService;
 
 	//Construtor
-	public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService){
+	public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService funcionarioService){
 
-		this.cargoService = cargoService;
+		this.crudCargoService = crudCargoService;
         this.funcionarioService = funcionarioService;
     }
 
@@ -43,15 +44,12 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 
 			int action = scanner.nextInt();
 
-//			if(action == 1){
-//				cargoService.inicial(scanner);
-//			}else {
-//				system = false;
-//			}
-
 			switch (action){
 				case 1:
-					cargoService.inicialCargo(scanner);
+//					CrudCargoService crudCargoService = new CrudCargoService();
+//					crudCargoService.inicialCargo(scanner);
+//					cargoService.inicialCargo();
+					crudCargoService.inicialCargo(scanner);
 					break;
 				case 2:
 					funcionarioService.inicialFuncionario(scanner);
@@ -65,6 +63,7 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 		}
 
 	}
+
 }
 
 /* SpringDataApplication faz com que o framework do Spring seja inicializado junto a aplicação.

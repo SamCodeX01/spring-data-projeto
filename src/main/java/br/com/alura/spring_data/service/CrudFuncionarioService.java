@@ -3,6 +3,7 @@ package br.com.alura.spring_data.service;
 import br.com.alura.spring_data.entity.Cargo;
 import br.com.alura.spring_data.entity.Funcionario;
 import br.com.alura.spring_data.repository.FuncionarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
@@ -11,15 +12,18 @@ import java.util.Scanner;
 public class CrudFuncionarioService {
     Scanner scanner = new Scanner(System.in);
     private Boolean system = true;
+
+
     private final FuncionarioRepository funcionarioRepository;
 
-    public CrudFuncionarioService(FuncionarioRepository repositorio) {
-        this.funcionarioRepository = repositorio;
+    public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
+        this.funcionarioRepository = funcionarioRepository;
     }
+
 
     public void inicialFuncionario(Scanner scanner) {
         while (true) {
-            exibirMenu();
+           // Metodos.exibirMenuFuncionarios();
 
             int op = scanner.nextInt();
 
@@ -45,22 +49,7 @@ public class CrudFuncionarioService {
 
         }
     };
-        private void exibirMenu(){
-            System.out.println("""
-                ═════════════════════════════
-                MENU FUNCIONÁRIOS
-                ═════════════════════════════
-                
-                Qual ação deseja executar?
-                
-                0 - Sair
-                1 - Salvar funcionário
-                2 - Atualizar funcionário
-                3 - Visualizar funcionários
-                4 - Deletar funcionário
-                
-                Escolha: """);
-        };
+
 
         private void salvar(){
             System.out.print("Nome do Funcionário: ");
