@@ -49,7 +49,8 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 //					CrudCargoService crudCargoService = new CrudCargoService();
 //					crudCargoService.inicialCargo(scanner);
 //					cargoService.inicialCargo();
-					crudCargoService.inicialCargo(scanner);
+//					crudCargoService.inicialCargo(scanner);
+					crudCargoService.exibirMenuFuncionarios();
 					break;
 				case 2:
 					funcionarioService.inicialFuncionario(scanner);

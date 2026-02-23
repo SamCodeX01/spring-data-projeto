@@ -83,7 +83,9 @@ public class CrudFuncionarioService {
             String dataContratacao = scanner.next();
 
             Funcionario funcionario = new Funcionario();
+            funcionario.setNome(nome);
 
+            funcionarioRepository.save(funcionario);
 
         }
         //private void visualizar(){}
