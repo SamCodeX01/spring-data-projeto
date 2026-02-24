@@ -10,12 +10,7 @@ import java.util.Scanner;
 
 @Service
 public class CrudCargoService {
-    Scanner scanner = new Scanner(System.in);
-//    private boolean system = true;
-
-//    @Autowired
-//    private CargoRepository cargoRepository;
-
+    //Atributos
     private final CargoRepository cargoRepository;
 
     //CONSTRUTOR
@@ -23,11 +18,15 @@ public class CrudCargoService {
         this.cargoRepository = cargoRepository;
     }
 
+    Scanner scanner = new Scanner(System.in);
+
+    //Funções
+
     public void exibirMenuCargo() {
         while (true) {
             System.out.print("""
                     ═════════════════════════════
-                    MENU FUNCIONÁRIOS
+                    MENU CARGO
                     ═════════════════════════════
                     
                     Qual ação deseja executar?
@@ -47,9 +46,8 @@ public class CrudCargoService {
                 case 2 -> atualizarCargo(scanner);
                 case 3 -> visualizarCargo(scanner);
                 case 4 -> deleteCargo(scanner);
+                default -> System.out.println("⚠️ Opção inválida! Digite 0-4");               }
             }
-
-        }
     }
 
     public void inicialCargo(Scanner scanner){
@@ -62,7 +60,7 @@ public class CrudCargoService {
 
         cargoRepository.save(cargo);
 
-        System.out.println("Descrição Salva com Sucesso!");
+        System.out.println("✅ Descrição Salva com Sucesso!");
 
     }
 
@@ -74,7 +72,7 @@ public class CrudCargoService {
         Optional<Cargo> optional = cargoRepository.findById(id);
 
         if(optional.isPresent()){
-            Cargo cargo =optional.get(); // Pega o cargo existente do banco
+            Cargo cargo = optional.get(); // Pega o cargo existente do banco
 
             System.out.print("Digite a nova descrição: ");
             String novaDesc = scanner.nextLine();
@@ -87,7 +85,7 @@ public class CrudCargoService {
     }
 
     public void visualizarCargo(Scanner scanner){
-        System.out.print("Digite o ID do Cargo a ser visulizado: ");
+        System.out.print("Digite o ID do Cargo a ser visualizado: ");
         int id = scanner.nextInt();
 
         Optional<Cargo> optional = cargoRepository.findById(id);
@@ -122,7 +120,7 @@ public class CrudCargoService {
         System.out.print("Digite o ID do Cargo a ser deletado: ");
         int id = scanner.nextInt();
         cargoRepository.deleteById(id);
-        System.out.println("Cargo: " + id + " deletado");
+        System.out.println("Cargo: " + id + " 🗑️ deletado");
         //Cargo cargo  = new Cargo():
 
     }

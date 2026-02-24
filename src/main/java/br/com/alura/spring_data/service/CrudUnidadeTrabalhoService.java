@@ -5,9 +5,46 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CrudUnidadeTrabalhoService {
+    //Atributos
     private final UnidadeTrabalhoRepository unidadeTrabalhoRepository;
 
-    public CrudUnidadeTrabalhoService(UnidadeTrabalhoRepository repositorio) {//aqui UnidadeTrabalhoRepository é uma classe
-        this.unidadeTrabalhoRepository = repositorio;
+    //Construtor
+    public CrudUnidadeTrabalhoService(UnidadeTrabalhoRepository unidadeTrabalhoRepository) {//aqui UnidadeTrabalhoRepository é uma classe
+        this.unidadeTrabalhoRepository = unidadeTrabalhoRepository;
     }
+
+    //Classes e objetos e serem instanciados
+
+
+    //Funções
+    void exibirUnidadeTrabalho(){}
+
+
+
+
+
+    /*
+
+    private int id;
+    private String descricao;
+    private String endereco;
+
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+

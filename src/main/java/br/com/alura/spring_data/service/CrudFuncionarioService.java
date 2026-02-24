@@ -10,52 +10,51 @@ import java.util.Scanner;
 
 @Service
 public class CrudFuncionarioService {
-    Scanner scanner = new Scanner(System.in);
+    //Atributos
     private Boolean system = true;
-
-
     private final FuncionarioRepository funcionarioRepository;
 
+    //Construtor
     public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
 
     Funcionario funcionario = new Funcionario();
+    Scanner scanner = new Scanner(System.in);
 
+    //Funções
     public void exibirFuncionario(Scanner scanner) {
         while (true) {
-           // Metodos.exibirMenuFuncionarios();
+           //Metodos.exibirMenuFuncionarios();
+
+            System.out.print("""
+                    ═════════════════════════════
+                    MENU FUNCIONÁRIOS
+                    ═════════════════════════════
+                    
+                    Qual ação deseja executar?
+                    
+                    0 - Sair
+                    1 - Salvar Cargo
+                    2 - Atualizar Cargo
+                    3 - Visualizar Cargo
+                    4 - Deletar Cargo
+                    
+                    Escolha: """);
 
             int op = scanner.nextInt();
 
-            String acao = switch (op) {
-                case 0 -> {
-                    yield "👋 Saindo do menu funcionários...";
-                }
-                case 1 ->  {
-                    salvar();
-                    yield "✅ Funcionário salvo com sucesso!";
-                }
-                case 2 -> "📝 Função atualizar (implementar)";
-                case 3 -> "📋 Função visualizar (implementar)";
-                case 4 -> {
-                    deletar();
-                    yield "🗑️ Deletado";
-                }
-                default -> "⚠️ Opção inválida! Digite 0-4";
-            };
-
-            System.out.println(acao); //mostra a ação escolhida
-
-            if (op == 0) {
-                break;//sai do loop
+            switch (op) {
+                case 1 -> salvar();
+                case 2 -> atualizar();
+                case 3 -> visualizar();
+                case 4 -> deletar();
+                default -> System.out.println("⚠️ Opção inválida! Digite 0-4");               }
             }
-
         }
-    };
 
 
-        private void salvar(){
+        public void salvar(){
             System.out.print("Nome do Funcionário: ");
             String nome = scanner.next();
             System.out.print("CPF do Funcionário: ");
@@ -77,7 +76,7 @@ public class CrudFuncionarioService {
             System.out.println("Dados do Funcionário salvo com sucesso!");
         }
 
-        private void atualizar(){
+    public void atualizar(){
             System.out.print("Nome do Funcionário: ");
             String nome = scanner.next();
             System.out.print("CPF do Funcionário: ");
@@ -91,10 +90,13 @@ public class CrudFuncionarioService {
             funcionario.setNome(nome);
 
             funcionarioRepository.save(funcionario);
+       }
 
-        }
+    public void visualizar(){
+           System.out.print("Digite o ID do Funcionário a ser visualizado: ");
+       }
 
-        private void deletar(){
+    public void deletar(){
             System.out.print("Digite o ID que sera deletado: ");
             int id = scanner.nextInt();
             funcionarioRepository.deleteById(id);

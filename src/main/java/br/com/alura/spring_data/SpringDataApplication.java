@@ -2,6 +2,7 @@ package br.com.alura.spring_data;
 
 import br.com.alura.spring_data.service.CrudCargoService;
 import br.com.alura.spring_data.service.CrudFuncionarioService;
+import br.com.alura.spring_data.service.CrudUnidadeTrabalhoService;
 import br.com.alura.spring_data.service.Metodos;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,14 +15,15 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 
 	//Atributos
 	private Boolean system = true;
-	private final CrudCargoService crudCargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não pode ser alterada posteriormente.
+	private final CrudCargoService cargoService;//final = variavel inicializada apenas uma vez (geralmente no construtor), não pode ser alterada posteriormente.
 	private final CrudFuncionarioService funcionarioService;
+	private final CrudUnidadeTrabalhoService unidadeTrabalhoService;
 
 	//Construtor
-	public SpringDataApplication(CrudCargoService crudCargoService, CrudFuncionarioService funcionarioService){
-
-		this.crudCargoService = crudCargoService;
+	public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService, CrudUnidadeTrabalhoService unidadeTrabalhoService){
+        this.cargoService = cargoService;
         this.funcionarioService = funcionarioService;
+		this.unidadeTrabalhoService = unidadeTrabalhoService;
     }
 
 	//Método principal
@@ -46,23 +48,19 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 
 			switch (action){
 				case 1:
-//					CrudCargoService crudCargoService = new CrudCargoService();
-//					crudCargoService.inicialCargo(scanner);
-//					cargoService.inicialCargo();
-//					crudCargoService.inicialCargo(scanner);
-					crudCargoService.exibirMenuCargo();
+					cargoService.exibirMenuCargo(); // cargoService é um objeto? se sim pq ele nao foi instanciado?
 					break;
 				case 2:
 					funcionarioService.exibirFuncionario(scanner);
 					break;
 				case 3:
+					unidadeTrabalhoService.(scanner);
 					break;
 				default:
 					system = false;
 					break;
 			}
 		}
-
 	}
 
 }
