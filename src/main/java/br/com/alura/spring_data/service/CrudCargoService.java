@@ -34,7 +34,7 @@ public class CrudCargoService {
                     
                     0 - Sair
                     1 - Salvar Cargo
-                    2 - 📝Atualizar Cargo
+                    2 - Atualizar Cargo
                     3 - Visualizar Cargo
                     4 - Deletar Cargo
                     
@@ -44,6 +44,7 @@ public class CrudCargoService {
 
             switch (op){
                 case 1 -> inicialCargo(scanner);
+                case 2 -> atualizarCargo(scanner);
                 case 3 -> visualizarCargo(scanner);
                 case 4 -> deleteCargo(scanner);
             }
@@ -70,9 +71,6 @@ public class CrudCargoService {
         int id = scanner.nextInt();
         scanner.nextLine(); // Limpa o buffer do scanner
 
-
-
-
         Optional<Cargo> optional = cargoRepository.findById(id);
 
         if(optional.isPresent()){
@@ -85,7 +83,6 @@ public class CrudCargoService {
             System.out.println("Cargo atualizado com sucesso!");
         } else {
             System.out.println("Cargo com ID " + id + " não encontrado!");
-
         }
     }
 
@@ -121,9 +118,6 @@ public class CrudCargoService {
 //        System.out.println("Cargo: " + cargo.getDescricao() + " visualizado");
     }
 
-
-
-
     public void deleteCargo(Scanner scanner){
         System.out.print("Digite o ID do Cargo a ser deletado: ");
         int id = scanner.nextInt();
@@ -133,8 +127,3 @@ public class CrudCargoService {
 
     }
 }
-
-    /*   2 - Atualizar Cargo
-    */
-
-

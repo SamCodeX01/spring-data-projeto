@@ -20,8 +20,9 @@ public class CrudFuncionarioService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
+    Funcionario funcionario = new Funcionario();
 
-    public void inicialFuncionario(Scanner scanner) {
+    public void exibirFuncionario(Scanner scanner) {
         while (true) {
            // Metodos.exibirMenuFuncionarios();
 
@@ -37,7 +38,10 @@ public class CrudFuncionarioService {
                 }
                 case 2 -> "📝 Função atualizar (implementar)";
                 case 3 -> "📋 Função visualizar (implementar)";
-                case 4 -> "🗑️ Função deletar (implementar)";
+                case 4 -> {
+                    deletar();
+                    yield "🗑️ Deletado";
+                }
                 default -> "⚠️ Opção inválida! Digite 0-4";
             };
 
@@ -67,6 +71,7 @@ public class CrudFuncionarioService {
             funcionario.setCpf(cpf);
             funcionario.setSalario(salario);
             funcionario.setDataContratacao(dataContratacao);
+
             funcionarioRepository.save(funcionario);
             System.out.println("Funcionário salvo com sucesso!");
             System.out.println("Dados do Funcionário salvo com sucesso!");
@@ -86,6 +91,17 @@ public class CrudFuncionarioService {
             funcionario.setNome(nome);
 
             funcionarioRepository.save(funcionario);
+
+        }
+
+        private void deletar(){
+            System.out.print("Digite o ID que sera deletado: ");
+            int id = scanner.nextInt();
+            funcionarioRepository.deleteById(id);
+
+            funcionario.getNome();
+
+            System.out.println("Funcionario_id: " + id + " " + funcionario.getNome() + "🗑️deletados");
 
         }
         //private void visualizar(){}

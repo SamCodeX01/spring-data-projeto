@@ -53,7 +53,7 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 					crudCargoService.exibirMenuCargo();
 					break;
 				case 2:
-					funcionarioService.inicialFuncionario(scanner);
+					funcionarioService.exibirFuncionario(scanner);
 					break;
 				case 3:
 					break;
