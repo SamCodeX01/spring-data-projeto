@@ -23,7 +23,7 @@ public class CrudCargoService {
         this.cargoRepository = cargoRepository;
     }
 
-    public void exibirMenuFuncionarios() {
+    public void exibirMenuCargo() {
         while (true) {
             System.out.print("""
                     ═════════════════════════════
@@ -65,18 +65,63 @@ public class CrudCargoService {
 
     }
 
+    public void atualizarCargo(Scanner scanner){
+        System.out.print("Digite ID");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Limpa o buffer do scanner
+
+
+
+
+        Optional<Cargo> optional = cargoRepository.findById(id);
+
+        if(optional.isPresent()){
+            Cargo cargo =optional.get(); // Pega o cargo existente do banco
+
+            System.out.print("Digite a nova descrição: ");
+            String novaDesc = scanner.nextLine();
+
+            cargo.setDescricao(novaDesc); // Atualiza a descrição
+            System.out.println("Cargo atualizado com sucesso!");
+        } else {
+            System.out.println("Cargo com ID " + id + " não encontrado!");
+
+        }
+    }
+
     public void visualizarCargo(Scanner scanner){
         System.out.print("Digite o ID do Cargo a ser visulizado: ");
         int id = scanner.nextInt();
 
-        Cargo cargo = new Cargo();
+        Optional<Cargo> optional = cargoRepository.findById(id);
 
-        cargo.setId(id);
-        cargoRepository.findById(id);
+        /*
+        "Optional contem a classe Cargo e é chamado de optional, recebe o que o repositório encontrar
+        através do findById quando busca pelo ID, guardando o resultado (que pode ou não existir) dentro de um Optional
+        */
 
-//        Optional <Cargo> cargo = cargoRepository.findById(id);
-        System.out.println("Cargo: " + cargo.getDescricao() + " visulizado");
+        if(optional.isPresent()){
+            Cargo cargo = optional.get();  // Pega o valor dentro do Optional
+            System.out.print("Digite uam nova descrição: ");
+            String novaDescrição = scanner.nextLine();
+            cargo.setDescricao(novaDescrição);
+            cargoRepository.save(cargo);
+            System.out.println("Cargo atualizado com sucesso!");
+        }
+        else{
+            System.out.println("Cargo com ID " + id + " não encontrado!");
+        }
+
+        /*
+        Optional é uma classe que serve como um container, indica se um objeto pode ou não estar presente.
+        Ao fazer uma busca no banco de dados por ID utlizando o findById, existem duas possibilidades:
+        Se o registro existe → retorna o objeto dentro do Optional
+        Se o registro NÃO existe → retorna um Optional vazio (não é null!)
+        */
+//        System.out.println("Cargo: " + cargo.getDescricao() + " visualizado");
     }
+
+
 
 
     public void deleteCargo(Scanner scanner){
@@ -90,8 +135,6 @@ public class CrudCargoService {
 }
 
     /*   2 - Atualizar Cargo
-         3 - Visualizar Cargo
     */
-
 
 
