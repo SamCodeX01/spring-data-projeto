@@ -72,7 +72,6 @@ public class CrudFuncionarioService {
             funcionario.setDataContratacao(dataContratacao);
 
             funcionarioRepository.save(funcionario);
-            System.out.println("Funcionário salvo com sucesso!");
             System.out.println("Dados do Funcionário salvo com sucesso!");
         }
 

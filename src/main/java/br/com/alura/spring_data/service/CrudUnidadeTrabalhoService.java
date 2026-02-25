@@ -4,6 +4,7 @@ import br.com.alura.spring_data.entity.UnidadeTrabalho;
 import br.com.alura.spring_data.repository.UnidadeTrabalhoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service
@@ -18,12 +19,11 @@ public class CrudUnidadeTrabalhoService {
 
     //Classes e objetos e serem instanciados
     Scanner scanner = new Scanner(System.in);
-    UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
 
     //Funções
-    public void exibirMenuUnidadeTrabalho(){
-        while(true){
-        System.out.print("""
+    public void exibirMenuUnidadeTrabalho() {
+        while (true) {
+            System.out.print("""
                     ═════════════════════════════
                     MENU UNIDADE DE TRABALHO
                     ═════════════════════════════
@@ -38,17 +38,21 @@ public class CrudUnidadeTrabalhoService {
                     
                     Escolha: """);
 
-                    int op = scanner.nextInt();
-                    scanner.nextLine();
+            int op = scanner.nextInt();
+            scanner.nextLine();
 
-                    switch (op){
-                        case 1 -> salvar(scanner);
-                        default -> System.out.println("Digite algo valido!");
-                    }
+            switch (op) {
+                case 1 -> salvar(scanner);
+                case 2 -> atualizar(scanner);
+                case 3 -> visualizar(scanner);
+                case 4 -> deletar(scanner);
+                default -> System.out.println("Digite algo valido!");
+            }
         }
     }
 
-    public void salvar(Scanner scanner){
+    public void salvar(Scanner scanner) {
+        UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
         System.out.println("Descricao Unidade de Trabalho");
         String descricao = scanner.nextLine();
         System.out.println("Endereço Unidade de Trabalho");
@@ -61,35 +65,46 @@ public class CrudUnidadeTrabalhoService {
 
         System.out.println("✅ Descrição e endereço Salvo com Sucesso!");
     }
-    public void atualizar(){System.out.println("Nome Unidade de Trabalho");}
-    public void visualizar(){System.out.println("Nome Unidade de Trabalho");}
-    public void  deletar(){System.out.println("Nome Unidade de Trabalho");}
+
+    public void atualizar(Scanner scanner) {
+        System.out.println("Digite o Id da Unidade de Trabalho");
+        int id = scanner.nextInt();
+
+        Optional<UnidadeTrabalho> opUnidadeTrabalho = unidadeTrabalhoRepository.findById(id);
+
+        if(opUnidadeTrabalho.isPresent()){
+            UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
+
+            un
+
+
+            System.out.println("Atualizar Unidade de Trabalho");
+            String descricao = scanner.nextLine();
+
+            System.out.println("Atualizar Unidade de Trabalho");
+            String endereco = scanner.nextLine();
+
+            unidadeTrabalho.setDescricao(descricao);
+            unidadeTrabalho.setEndereco(endereco);
+
+            unidadeTrabalhoRepository.save(unidadeTrabalho);
+
+        }else{}
 
 
 
 
-    /*
+    }
 
-    private int id;
-    private String descricao;
-    private String endereco;
+    public void
+    visualizar(Scanner scanner) {
+        System.out.println("Nome Unidade de Trabalho");
+    }
 
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void deletar(Scanner scanner) {
+        System.out.print("Id da Unidade a ser Deletada: ");
+        int id = scanner.nextInt();
+        unidadeTrabalhoRepository.deleteById(id);
+        System.out.println("Unidade de Trabalho: " + id + " 🗑️ deletado");
+    }
 }
-
-
