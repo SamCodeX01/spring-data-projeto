@@ -51,10 +51,10 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 					cargoService.exibirMenuCargo(); // cargoService é um objeto? se sim pq ele nao foi instanciado?
 					break;
 				case 2:
-					funcionarioService.exibirFuncionario(scanner);
+					funcionarioService.exibirMenuFuncionario(scanner);
 					break;
 				case 3:
-					unidadeTrabalhoService.(scanner);
+					unidadeTrabalhoService.exibirMenuUnidadeTrabalho();
 					break;
 				default:
 					system = false;

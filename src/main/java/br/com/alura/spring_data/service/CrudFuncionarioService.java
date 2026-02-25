@@ -23,7 +23,7 @@ public class CrudFuncionarioService {
     Scanner scanner = new Scanner(System.in);
 
     //Funções
-    public void exibirFuncionario(Scanner scanner) {
+    public void exibirMenuFuncionario(Scanner scanner) {
         while (true) {
            //Metodos.exibirMenuFuncionarios();
 
