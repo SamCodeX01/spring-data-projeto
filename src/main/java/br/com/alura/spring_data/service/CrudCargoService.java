@@ -30,8 +30,7 @@ public class CrudCargoService {
                     ═════════════════════════════
                     
                     Qual ação deseja executar?
-                    
-                    0 - Sair
+                   
                     1 - Salvar Cargo
                     2 - Atualizar Cargo
                     3 - Visualizar Cargo
@@ -41,22 +40,25 @@ public class CrudCargoService {
 
             int op = scanner.nextInt();
 
-            switch (op){
+            switch (op) {
                 case 1 -> inicialCargo(scanner);
                 case 2 -> atualizarCargo(scanner);
                 case 3 -> visualizarCargo(scanner);
                 case 4 -> deleteCargo(scanner);
-                default -> System.out.println("⚠️ Opção inválida! Digite 0-4");               }
+                default -> System.out.println("\n⚠️ Opção inválida! Digite as opções 1,2,3 ou 4.");
+                }
+                break;
             }
+
     }
 
     public void inicialCargo(Scanner scanner){
-        System.out.print("Digite a Descrição do Cargo: ");
-        String descricao = scanner.next(); //Usuario digita
-
         Cargo cargo = new Cargo(); // Cria um objeto
 
-        cargo.setDescricao(descricao); //seta a descricao o que o usuario digitou no objeto cargo
+        System.out.print("Digite a Descrição do Cargo: ");
+        String descCargo = scanner.next(); //Usuario digita
+
+        cargo.setDescricao(descCargo); //seta a descricao o que o usuario digitou no objeto cargo
 
         cargoRepository.save(cargo);
 
@@ -75,10 +77,11 @@ public class CrudCargoService {
             Cargo cargo = optional.get(); // Pega o cargo existente do banco
 
             System.out.print("Digite a nova descrição: ");
-            String novaDesc = scanner.nextLine();
+            String novaDescCargo = scanner.nextLine();
 
-            cargo.setDescricao(novaDesc); // Atualiza a descrição
-            System.out.println("Cargo atualizado com sucesso!");
+            cargo.setDescricao(novaDescCargo); // Atualiza a descrição
+
+            System.out.println("✅ Cargo atualizado com sucesso!");
         } else {
             System.out.println("Cargo com ID " + id + " não encontrado!");
         }
@@ -92,10 +95,10 @@ public class CrudCargoService {
 
         /*
         "Optional contem a classe Cargo e é chamado de optional, recebe o que o repositório encontrar
-        através do findById quando busca pelo ID, guardando o resultado (que pode ou não existir) dentro de um Optional
+        através do findById quando busca pelo Id, guardando o resultado (que pode ou não existir) dentro do Optional
         */
 
-        if(optional.isPresent()){
+        if(optional.isPresent()){//Aqui o Optional verifica se id buscado está presente no repositório
             Cargo cargo = optional.get();  // Pega o valor dentro do Optional
             System.out.print("Digite uam nova descrição: ");
             String novaDescrição = scanner.nextLine();

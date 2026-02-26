@@ -8,7 +8,7 @@ public class Funcionario {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    private int cpf;
+    private String cpf;
     private double salario;
     private String dataContratacao;
 
@@ -28,11 +28,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

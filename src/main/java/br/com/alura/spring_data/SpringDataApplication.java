@@ -57,12 +57,11 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 					unidadeTrabalhoService.exibirMenuUnidadeTrabalho();
 					break;
 				default:
-					system = false;
+					System.out.println("Digite uma opção válida!");
 					break;
 			}
 		}
 	}
-
 }
 
 /* SpringDataApplication faz com que o framework do Spring seja inicializado junto a aplicação.

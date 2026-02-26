@@ -6,6 +6,7 @@ import br.com.alura.spring_data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service
@@ -35,10 +36,10 @@ public class CrudFuncionarioService {
                     Qual ação deseja executar?
                     
                     0 - Sair
-                    1 - Salvar Cargo
-                    2 - Atualizar Cargo
-                    3 - Visualizar Cargo
-                    4 - Deletar Cargo
+                    1 - Salvar Funcionários
+                    2 - Atualizar Funcionários
+                    3 - Visualizar Funcionários
+                    4 - Deletar Funcionários
                     
                     Escolha: """);
 
@@ -49,20 +50,22 @@ public class CrudFuncionarioService {
                 case 2 -> atualizar();
                 case 3 -> visualizar();
                 case 4 -> deletar();
-                default -> System.out.println("⚠️ Opção inválida! Digite 0-4");               }
+                default -> System.out.println("\n⚠️ Opção inválida! Digite as opções 1,2,3 ou 4.");
+            }
+                    break;
             }
         }
 
 
         public void salvar(){
             System.out.print("Nome do Funcionário: ");
-            String nome = scanner.next();
+            String nome = scanner.nextLine();
             System.out.print("CPF do Funcionário: ");
-            int cpf = scanner.nextInt();
+            String cpf = scanner.nextLine();
             System.out.print("Salário do Funcionário:: ");
             double salario = scanner.nextDouble();
             System.out.print("Data da Contratação: ");
-            String dataContratacao = scanner.next();
+            String dataContratacao = scanner.nextLine();
 
             Funcionario funcionario = new Funcionario();
 
@@ -75,24 +78,41 @@ public class CrudFuncionarioService {
             System.out.println("Dados do Funcionário salvo com sucesso!");
         }
 
-    public void atualizar(){
-            System.out.print("Nome do Funcionário: ");
-            String nome = scanner.next();
-            System.out.print("CPF do Funcionário: ");
-            int cpf = scanner.nextInt();
-            System.out.print("Salário do Funcionário:: ");
-            double salario = scanner.nextDouble();
-            System.out.print("Data da Contratação: ");
-            String dataContratacao = scanner.next();
+    public void atualizar(){//Aqui o Optional verifica se id buscado está presente no repositório
+            System.out.print("Id do Funcionário a ser atualizado: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); //limpar o buffer
 
-            Funcionario funcionario = new Funcionario();
-            funcionario.setNome(nome);
+        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id); //optionalFuncionario recece ou não busca pelo id pelo repositorio funcionarioRepository
 
-            funcionarioRepository.save(funcionario);
+            if(optionalFuncionario.isPresent()){
+                System.out.print("Nome do Funcionário: ");
+                String novoNome = scanner.next();
+                System.out.print("CPF do Funcionário: ");
+                String novoCpf = scanner.nextLine();
+                System.out.print("Salário do Funcionário:: ");
+                double novoSalario = scanner.nextDouble();
+                System.out.print("Data da Contratação: ");
+                String novaDataContratacao = scanner.next();
+
+                funcionario.setNome(novoNome);
+                funcionario.setCpf(novoCpf);
+                funcionario.setSalario(novoSalario);
+                funcionario.setDataContratacao(novaDataContratacao);
+
+                funcionarioRepository.save(funcionario);
+
+                System.out.println("✅ Funcionário Atualizado com Sucesso!");
+
+            }else{
+
+            }
+
        }
 
     public void visualizar(){
-           System.out.print("Digite o ID do Funcionário a ser visualizado: ");
+
+        System.out.print("Digite o ID do Funcionário a ser visualizado: ");
        }
 
     public void deletar(){
