@@ -90,6 +90,7 @@ public class CrudCargoService {
     public void visualizarCargo(Scanner scanner){
         System.out.print("Digite o ID do Cargo a ser visualizado: ");
         int id = scanner.nextInt();
+        scanner.nextLine(); //Limpa o buffer
 
         Optional<Cargo> optional = cargoRepository.findById(id);
 
@@ -99,15 +100,12 @@ public class CrudCargoService {
         */
 
         if(optional.isPresent()){//Aqui o Optional verifica se id buscado está presente no repositório
-            Cargo cargo = optional.get();  // Pega o valor dentro do Optional
+            Cargo cargo = optional.get();  // Pega o objeto cargo encontrado através do Id
 
-            System.out.print("Digite uam nova descrição: ");
-            String novaDescrição = scanner.nextLine();
-
-            cargo.setDescricao(novaDescrição);
-
-            cargoRepository.save(cargo);
-            System.out.println("Cargo atualizado com sucesso!");
+            // SÓ VISUALIZA - mostra os dados na tela
+            System.out.println("\n=== DADOS DO CARGO ===");
+            System.out.println("ID: " + cargo.getId());
+            System.out.println("Descrição: " + cargo.getDescricao());
         }
         else{
             System.out.println("Cargo com ID " + id + " não encontrado!");
