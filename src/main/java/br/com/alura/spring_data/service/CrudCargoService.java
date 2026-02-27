@@ -100,9 +100,12 @@ public class CrudCargoService {
 
         if(optional.isPresent()){//Aqui o Optional verifica se id buscado está presente no repositório
             Cargo cargo = optional.get();  // Pega o valor dentro do Optional
+
             System.out.print("Digite uam nova descrição: ");
             String novaDescrição = scanner.nextLine();
+
             cargo.setDescricao(novaDescrição);
+
             cargoRepository.save(cargo);
             System.out.println("Cargo atualizado com sucesso!");
         }

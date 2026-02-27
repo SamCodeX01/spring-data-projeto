@@ -111,8 +111,18 @@ public class CrudFuncionarioService {
        }
 
     public void visualizar(){
-
         System.out.print("Digite o ID do Funcionário a ser visualizado: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
+
+        if(optionalFuncionario.isPresent()){
+            Funcionario funcionario = optionalFuncionario.get();
+        }else{
+
+        }
+
        }
 
     public void deletar(){

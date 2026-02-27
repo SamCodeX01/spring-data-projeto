@@ -101,6 +101,7 @@ public class CrudUnidadeTrabalhoService {
 
     public void
     visualizar(Scanner scanner) {
+
         System.out.println("Nome Unidade de Trabalho");
     }
 
