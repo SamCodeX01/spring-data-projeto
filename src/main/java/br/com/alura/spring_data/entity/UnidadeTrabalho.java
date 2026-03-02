@@ -2,13 +2,18 @@ package br.com.alura.spring_data.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "unidades")
 public class UnidadeTrabalho {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descricao;
     private String endereco;
+    @ManyToMany(mappedBy = "unidadeTrabalhos", fetch = FetchType.EAGER)
+    private List<Funcionario>funcionario;
 
     public int getId() {
         return id;

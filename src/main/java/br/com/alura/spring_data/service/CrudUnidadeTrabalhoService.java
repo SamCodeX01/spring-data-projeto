@@ -30,11 +30,11 @@ public class CrudUnidadeTrabalhoService {
                     
                     Qual ação deseja executar?
                     
-                    0 - Sair
                     1 - Salvar Unidade de Trabalho
                     2 - Atualizar Unidade de Trabalho
-                    3 - Visualizar Unidade de Trabalho
-                    4 - Deletar Unidade de Trabalho
+                    3 - Visualizar Unidade de Trabalho por ID
+                    4 - Listar Todas Unidades de Trabalho (fazer ainda)
+                    5 - Deletar Unidade de Trabalho
                     
                     Escolha: """);
 
@@ -45,7 +45,7 @@ public class CrudUnidadeTrabalhoService {
                 case 1 -> salvar(scanner);
                 case 2 -> atualizar(scanner);
                 case 3 -> visualizar(scanner);
-                case 4 -> deletar(scanner);
+                case 5 -> deletar(scanner);
                 default -> System.out.println("\n⚠️ Opção inválida! Digite as opções 1,2,3 ou 4.");
             }
             break;
@@ -99,16 +99,31 @@ public class CrudUnidadeTrabalhoService {
         }
     }
 
-    public void
-    visualizar(Scanner scanner) {
+    public void visualizar(Scanner scanner) {//Esse metodo Visualiza UM cargo específico (com tratamento de ausência)
+        System.out.println("Digite o id da Unidade de Trabalho a ser visualizado: ");
+        int id = scanner.nextInt();
 
-        System.out.println("Nome Unidade de Trabalho");
+        Optional<UnidadeTrabalho> optionalUnidadeTrabalho = unidadeTrabalhoRepository.findById(id);
+        //procura o id dentro que esta dentro de unidadeTrabalhoRepository e guarda em optionalUnidadeTrabalho
+
+        if(optionalUnidadeTrabalho.isPresent()){//verifica se o id buscado na unidadeTrabalhoRepository esta presente em optionalUnidadeTrabalho
+            UnidadeTrabalho unidadeTrabalho = optionalUnidadeTrabalho.get(); //pega o id estando presente que esta dentro de optionalUnidadeTrabalho e coloca dentro UnidadeTrabalho
+
+            System.out.println("Descrição: " + unidadeTrabalho.getDescricao());
+            System.out.println("Endereço:" + unidadeTrabalho.getEndereco());
+
+        }else{
+            System.out.println("Unidade de Trabalho com o ID " + id + " não encontrado!");
+        }
+
     }
 
     public void deletar(Scanner scanner) {
+        UnidadeTrabalho unidadeTrabalho = new UnidadeTrabalho();
         System.out.print("Id da Unidade a ser Deletada: ");
         int id = scanner.nextInt();
         unidadeTrabalhoRepository.deleteById(id);
+        System.out.println("Unidade de Trabalho: " + id + " 🗑️ deletado");
         System.out.println("Unidade de Trabalho: " + id + " 🗑️ deletado");
     }
 }

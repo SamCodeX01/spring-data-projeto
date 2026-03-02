@@ -34,14 +34,15 @@ public class CrudCargoService {
                     1 - Salvar Cargo
                     2 - Atualizar Cargo
                     3 - Visualizar Cargo
-                    4 - Deletar Cargo
+                    4 - Listar Todas Unidades de Trabalho (fazer ainda)
+                    5 - Deletar Cargo
                     
                     Escolha: """);
 
             int op = scanner.nextInt();
 
             switch (op) {
-                case 1 -> inicialCargo(scanner);
+                case 1 -> salvarCargo(scanner);
                 case 2 -> atualizarCargo(scanner);
                 case 3 -> visualizarCargo(scanner);
                 case 4 -> deleteCargo(scanner);
@@ -52,15 +53,15 @@ public class CrudCargoService {
 
     }
 
-    public void inicialCargo(Scanner scanner){
+    public void salvarCargo(Scanner scanner){
         Cargo cargo = new Cargo(); // Cria um objeto
 
         System.out.print("Digite a Descrição do Cargo: ");
         String descCargo = scanner.next(); //Usuario digita
 
-        cargo.setDescricao(descCargo); //seta a descricao o que o usuario digitou no objeto cargo
+        cargo.setDescricao(descCargo); //define o atributo do objeto descricao da classe Cargo através do que o usuario digitou com o scanner descCargo
 
-        cargoRepository.save(cargo);
+        cargoRepository.save(cargo); //salva no repositório
 
         System.out.println("✅ Descrição Salva com Sucesso!");
 
@@ -81,6 +82,8 @@ public class CrudCargoService {
 
             cargo.setDescricao(novaDescCargo); // Atualiza a descrição
 
+            cargoRepository.save(cargo); // Aqui esta persistindo essa mudança no banco de dados.
+
             System.out.println("✅ Cargo atualizado com sucesso!");
         } else {
             System.out.println("Cargo com ID " + id + " não encontrado!");
@@ -100,7 +103,7 @@ public class CrudCargoService {
         */
 
         if(optional.isPresent()){//Aqui o Optional verifica se id buscado está presente no repositório
-            Cargo cargo = optional.get();  // Pega o objeto cargo encontrado através do Id
+            Cargo cargo = optional.get(); // Pega o objeto cargo encontrado através do Id
 
             // SÓ VISUALIZA - mostra os dados na tela
             System.out.println("\n=== DADOS DO CARGO ===");
@@ -118,14 +121,16 @@ public class CrudCargoService {
         Se o registro NÃO existe → retorna um Optional vazio (não é null!)
         */
 //        System.out.println("Cargo: " + cargo.getDescricao() + " visualizado");
+
+        Iterable<Cargo> cargos = cargoRepository.findAll();
+        cargos.forEach(cargo -> System.out.println(cargo));
+
     }
 
     public void deleteCargo(Scanner scanner){
         System.out.print("Digite o ID do Cargo a ser deletado: ");
-        int id = scanner.nextInt();
-        cargoRepository.deleteById(id);
+        int id = scanner.nextInt(); //aqui o usuario digita o id a ser dletado
+        cargoRepository.deleteById(id); //Busca o id a ser deletado no repositório cargoRepository
         System.out.println("Cargo: " + id + " 🗑️ deletado");
-        //Cargo cargo  = new Cargo():
-
     }
 }

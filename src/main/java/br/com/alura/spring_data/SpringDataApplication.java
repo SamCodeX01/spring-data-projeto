@@ -3,7 +3,6 @@ package br.com.alura.spring_data;
 import br.com.alura.spring_data.service.CrudCargoService;
 import br.com.alura.spring_data.service.CrudFuncionarioService;
 import br.com.alura.spring_data.service.CrudUnidadeTrabalhoService;
-import br.com.alura.spring_data.service.Metodos;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -66,3 +65,6 @@ public class SpringDataApplication implements CommandLineRunner { //SpringDataAp
 
 /* SpringDataApplication faz com que o framework do Spring seja inicializado junto a aplicação.
 É preciso inicializar o framework para que se possa conseguir utilizar suas ferramentas dentro da aplicação.*/
+
+
+

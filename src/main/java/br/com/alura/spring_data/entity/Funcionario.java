@@ -1,6 +1,10 @@
 package br.com.alura.spring_data.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
 
 @Entity
 @Table(name = "funcionarios")
@@ -11,6 +15,15 @@ public class Funcionario {
     private String cpf;
     private double salario;
     private String dataContratacao;
+    @ManyToOne
+    @JoinColumn(name = "cargo_id", nullable = false)
+    private Cargo cargo;
+    @Fetch(FetchMode.SELECT)// Define que os dados serão carregados em consultas SELECT separadas
+    @ManyToMany(fetch = FetchType.EAGER) // Relacionamento muitos-para-muitos carregado imediatamente
+    @JoinTable(name = "funcionarios_unidades",  // Nome da tabela de junção no banco
+            joinColumns = {@JoinColumn(name = "fk_funcionario") }, // Coluna que referencia Funcionario
+            inverseJoinColumns = {@JoinColumn(name = "fk_unidade")}) // Coluna que referencia UnidadeTrabalho
+    private List<UnidadeTrabalho> unidadeTrabalhos; // Lista de unidades associadas ao funcionário
 
     public int getId() {
         return id;

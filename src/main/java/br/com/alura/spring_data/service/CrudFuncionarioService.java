@@ -20,7 +20,6 @@ public class CrudFuncionarioService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    Funcionario funcionario = new Funcionario();
     Scanner scanner = new Scanner(System.in);
 
     //Funções
@@ -35,11 +34,11 @@ public class CrudFuncionarioService {
                     
                     Qual ação deseja executar?
                     
-                    0 - Sair
                     1 - Salvar Funcionários
                     2 - Atualizar Funcionários
                     3 - Visualizar Funcionários
-                    4 - Deletar Funcionários
+                    4 - Listar Todas Unidades de Trabalho (fazer ainda)
+                    5 - Deletar Funcionários
                     
                     Escolha: """);
 
@@ -49,13 +48,12 @@ public class CrudFuncionarioService {
                 case 1 -> salvar();
                 case 2 -> atualizar();
                 case 3 -> visualizar();
-                case 4 -> deletar();
+                case 5 -> deletar();
                 default -> System.out.println("\n⚠️ Opção inválida! Digite as opções 1,2,3 ou 4.");
             }
                     break;
             }
         }
-
 
         public void salvar(){
             System.out.print("Nome do Funcionário: ");
@@ -86,6 +84,8 @@ public class CrudFuncionarioService {
         Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id); //optionalFuncionario recece ou não busca pelo id pelo repositorio funcionarioRepository
 
             if(optionalFuncionario.isPresent()){
+                Funcionario funcionario = optionalFuncionario.get();
+
                 System.out.print("Nome do Funcionário: ");
                 String novoNome = scanner.next();
                 System.out.print("CPF do Funcionário: ");
@@ -100,42 +100,48 @@ public class CrudFuncionarioService {
                 funcionario.setSalario(novoSalario);
                 funcionario.setDataContratacao(novaDataContratacao);
 
-                funcionarioRepository.save(funcionario);
+                funcionarioRepository.save(funcionario); // Aqui esta persistindo essa mudança no banco de dados.
+
 
                 System.out.println("✅ Funcionário Atualizado com Sucesso!");
 
             }else{
+                System.out.println("Funcionário com ID " + id + " não encontrado!");
 
             }
 
        }
 
-    public void visualizar(){
+    public void visualizar(){//Esse metodo Visualiza UM cargo específico (com tratamento de ausência)
         System.out.print("Digite o ID do Funcionário a ser visualizado: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+            int id = scanner.nextInt();
 
         Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
 
-        if(optionalFuncionario.isPresent()){
-            Funcionario funcionario = optionalFuncionario.get();
-        }else{
+        if(optionalFuncionario.isPresent()){//se o id está presente dentro de optionalFuncionario
+            Funcionario funcionario = optionalFuncionario.get(); //objeto funcionario recebe o id que esta em optionalFuncionario
 
+            System.out.println("Id: " + funcionario.getId());
+            System.out.println("Nome: " + funcionario.getNome());
+            System.out.println("CPF: " + funcionario.getCpf());
+            System.out.println("Salário: " + funcionario.getSalario());
+            System.out.println("Data da Contratação: " + funcionario.getDataContratacao());
+        }else{
+            System.out.println("Funcionário com ID " + id + " não encontrado!");
         }
 
        }
 
     public void deletar(){
+        Funcionario funcionario = new Funcionario();
             System.out.print("Digite o ID que sera deletado: ");
             int id = scanner.nextInt();
+
             funcionarioRepository.deleteById(id);
 
-            funcionario.getNome();
-
             System.out.println("Funcionario_id: " + id + " " + funcionario.getNome() + "🗑️deletados");
-
         }
         //private void visualizar(){}
         //private void deletar(){}
-
 };
+
