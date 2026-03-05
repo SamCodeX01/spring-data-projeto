@@ -113,23 +113,25 @@ public class CrudFuncionarioService {
        }
 
     public void visualizar(){//Esse metodo Visualiza UM cargo específico (com tratamento de ausência)
-        System.out.print("Digite o ID do Funcionário a ser visualizado: ");
-            int id = scanner.nextInt();
+//        System.out.print("Digite o ID do Funcionário a ser visualizado: ");
+//            int id = scanner.nextInt();
+//
+//        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
+//
+//        if(optionalFuncionario.isPresent()){//se o id está presente dentro de optionalFuncionario
+//            Funcionario funcionario = optionalFuncionario.get(); //objeto funcionario recebe o id que esta em optionalFuncionario
+//
+//            System.out.println("Id: " + funcionario.getId());
+//            System.out.println("Nome: " + funcionario.getNome());
+//            System.out.println("CPF: " + funcionario.getCpf());
+//            System.out.println("Salário: " + funcionario.getSalario());
+//            System.out.println("Data da Contratação: " + funcionario.getDataContratacao());
+//        }else{
+//            System.out.println("Funcionário com ID " + id + " não encontrado!");
+//        }
 
-        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
-
-        if(optionalFuncionario.isPresent()){//se o id está presente dentro de optionalFuncionario
-            Funcionario funcionario = optionalFuncionario.get(); //objeto funcionario recebe o id que esta em optionalFuncionario
-
-            System.out.println("Id: " + funcionario.getId());
-            System.out.println("Nome: " + funcionario.getNome());
-            System.out.println("CPF: " + funcionario.getCpf());
-            System.out.println("Salário: " + funcionario.getSalario());
-            System.out.println("Data da Contratação: " + funcionario.getDataContratacao());
-        }else{
-            System.out.println("Funcionário com ID " + id + " não encontrado!");
-        }
-
+        Iterable<Funcionario>funcionarios = funcionarioRepository.findAll();
+        funcionarios.forEach(funcionario -> System.out.println(funcionario));
        }
 
     public void deletar(){

@@ -21,7 +21,6 @@ public class CrudCargoService {
     Scanner scanner = new Scanner(System.in);
 
     //Funções
-
     public void exibirMenuCargo() {
         while (true) {
             System.out.print("""
@@ -122,9 +121,8 @@ public class CrudCargoService {
         */
 //        System.out.println("Cargo: " + cargo.getDescricao() + " visualizado");
 
-        Iterable<Cargo> cargos = cargoRepository.findAll();
-        cargos.forEach(cargo -> System.out.println(cargo));
-
+//        Iterable<Cargo> cargos = cargoRepository.findAll();
+//        cargos.forEach(cargo -> System.out.println(cargo));
     }
 
     public void deleteCargo(Scanner scanner){
