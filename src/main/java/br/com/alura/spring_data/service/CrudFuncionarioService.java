@@ -4,10 +4,16 @@ import br.com.alura.spring_data.entity.Cargo;
 import br.com.alura.spring_data.entity.Funcionario;
 import br.com.alura.spring_data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Scanner;
+
+import static jdk.internal.jrtfs.JrtFileAttributeView.AttrID.size;
 
 @Service
 public class CrudFuncionarioService {
@@ -112,27 +118,25 @@ public class CrudFuncionarioService {
 
        }
 
-    public void visualizar(){//Esse metodo Visualiza UM cargo específico (com tratamento de ausência)
-//        System.out.print("Digite o ID do Funcionário a ser visualizado: ");
-//            int id = scanner.nextInt();
-//
-//        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
-//
-//        if(optionalFuncionario.isPresent()){//se o id está presente dentro de optionalFuncionario
-//            Funcionario funcionario = optionalFuncionario.get(); //objeto funcionario recebe o id que esta em optionalFuncionario
-//
-//            System.out.println("Id: " + funcionario.getId());
-//            System.out.println("Nome: " + funcionario.getNome());
-//            System.out.println("CPF: " + funcionario.getCpf());
-//            System.out.println("Salário: " + funcionario.getSalario());
-//            System.out.println("Data da Contratação: " + funcionario.getDataContratacao());
-//        }else{
-//            System.out.println("Funcionário com ID " + id + " não encontrado!");
-//        }
+    public void visualizar(){//Método público que não retorna valor (void) e serve para visualizar funcionários de forma paginada.
 
-        Iterable<Funcionario>funcionarios = funcionarioRepository.findAll();
-        funcionarios.forEach(funcionario -> System.out.println(funcionario));
-       }
+        System.out.print("Qual página você deseja visualizar: ");
+        Integer page = scanner.nextInt();//Lê entrada do usuário - Captura o número digitado pelo usuário (ex: 0, 1, 2...) e armazena na variável page. Este número indica qual página de resultados será exibida.
+
+        //Pageable pageable = PageRequest.of(page, 5, Sort.unsorted());
+        Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC, "nome");
+        //PageRequest.of() metodo estático que cria uma requisição de página/page: número da página solicitada (começa em 0)/5: quantidade de registros por página/Sort.unsorted(): define que não haverá ordenação específica
+
+        Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);//O banco de dados retorna APENAS os registros da página solicitada (não carrega todos)
+
+        System.out.println("Conteúdo da página:");
+        funcionarios.forEach(funcionario -> System.out.println(funcionario)); //A expressão funcionario -> System.out.println(funcionario) imprime cada funcionário (chamando seu método toString())
+
+        // System.out.println(funcionarios);
+        System.out.println("Página atual " + funcionarios.getNumber()); //getNumber() retorna o número da página atual (começa em 0)
+        System.out.println("Total elemento " + funcionarios.getTotalElements());
+        System.out.println("Total de páginas: " + funcionarios.getTotalPages());
+    }
 
     public void deletar(){
         Funcionario funcionario = new Funcionario();
@@ -143,7 +147,4 @@ public class CrudFuncionarioService {
 
             System.out.println("Funcionario_id: " + id + " " + funcionario.getNome() + "🗑️deletados");
         }
-        //private void visualizar(){}
-        //private void deletar(){}
 };
-

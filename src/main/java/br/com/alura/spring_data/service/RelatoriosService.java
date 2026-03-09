@@ -27,15 +27,13 @@ public class RelatoriosService {
                     Qual ação deseja executar?
                    
                     1 - Buscar Funcionário por nome: 
-                    
-                    
+                                        
                     Escolha: """);
 
             int op = scanner.nextInt();
 
             switch (op) {
                 case 1 -> buscaFuncionarioNome(scanner);
-
                 default -> System.out.println("\n⚠️ Opção inválida!");
             }
             //break;
