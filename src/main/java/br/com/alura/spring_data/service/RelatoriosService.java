@@ -4,7 +4,9 @@ import br.com.alura.spring_data.entity.Funcionario;
 import br.com.alura.spring_data.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 @Service
@@ -21,12 +23,14 @@ public class RelatoriosService {
         while (true) {
             System.out.print("""
                     ═════════════════════════════
-                    MENU 
+                                MENU 
                     ═════════════════════════════
                     
-                    Qual ação deseja executar?
+                    Qual relatório deseja executar?
                    
-                    1 - Buscar Funcionário por nome: 
+                    1 - Buscar Funcionário por Nome: 
+                    2 - Buscar Funcionário por Nome e Data de Contratação: 
+                    3 - Buscar Funcionário por Data de Contratação: 
                                         
                     Escolha: """);
 
@@ -34,6 +38,8 @@ public class RelatoriosService {
 
             switch (op) {
                 case 1 -> buscaFuncionarioNome(scanner);
+                case 2 -> buscaFuncionarioNomeSalarioMaiorData();
+                case 3 -> buscaFuncionarioDataContratacao();
                 default -> System.out.println("\n⚠️ Opção inválida!");
             }
             //break;
@@ -47,6 +53,37 @@ public class RelatoriosService {
 
         List<Funcionario> list = funcionarioRepository.findByNome(nome);
         list.forEach(System.out::println);
+    }
+
+    private void buscaFuncionarioNomeSalarioMaiorData(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Qual nome deseja pesquisar: ");
+        String nome = scanner.next();
+
+        System.out.println("Qual data contratação deseja pesquisar: ");
+        String data = scanner.next();
+        LocalDate localDate = LocalDate.parse(data, formatter);
+
+        System.out.println("Qual salário deseja pesquisar");
+        Double salario = scanner.nextDouble();
+
+        List<Funcionario> list = funcionarioRepository.findNomeSalarioMaiorDataContratacao(nome, salario, localDate);
+        list.forEach(System.out::println);
+
+    }
+
+    private void buscaFuncionarioDataContratacao(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Qual data contratação deseja pesquisar");
+        String data = scanner.next();
+        LocalDate localDate = LocalDate.parse(data, formatter);
+
+        List<Funcionario> list = funcionarioRepository.findDataContratacaoMaior(localDate);
+        list.forEach(System.out::println);
+    }
+
+    private void pesquisaFuncionarioSalario(){
+
     }
 
 }

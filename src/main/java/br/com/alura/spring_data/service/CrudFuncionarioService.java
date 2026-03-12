@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -115,7 +114,6 @@ public class CrudFuncionarioService {
                 System.out.println("Funcionário com ID " + id + " não encontrado!");
 
             }
-
        }
 
     public void visualizar(){//Método público que não retorna valor (void) e serve para visualizar funcionários de forma paginada.
