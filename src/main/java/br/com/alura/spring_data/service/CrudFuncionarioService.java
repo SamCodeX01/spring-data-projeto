@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Scanner;
 
-import static jdk.internal.jrtfs.JrtFileAttributeView.AttrID.size;
 
 @Service
 public class CrudFuncionarioService {

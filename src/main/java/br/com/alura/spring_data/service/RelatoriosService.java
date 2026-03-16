@@ -1,10 +1,12 @@
 package br.com.alura.spring_data.service;
 
 import br.com.alura.spring_data.entity.Funcionario;
+import br.com.alura.spring_data.entity.FuncionarioProjecao;
 import br.com.alura.spring_data.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -12,7 +14,11 @@ import java.util.Scanner;
 @Service
 public class RelatoriosService {
     private boolean system = true;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     private FuncionarioRepository funcionarioRepository;
+    private FuncionarioProjecao funcionarioProjecao;
 
     RelatoriosService(FuncionarioRepository funcionarioRepository){
         this.funcionarioRepository = funcionarioRepository;
@@ -31,6 +37,8 @@ public class RelatoriosService {
                     1 - Buscar Funcionário por Nome: 
                     2 - Buscar Funcionário por Nome e Data de Contratação: 
                     3 - Buscar Funcionário por Data de Contratação: 
+                    4 - Pesquisa Funcionário Salário: 
+                    
                                         
                     Escolha: """);
 
@@ -40,6 +48,7 @@ public class RelatoriosService {
                 case 1 -> buscaFuncionarioNome(scanner);
                 case 2 -> buscaFuncionarioNomeSalarioMaiorData();
                 case 3 -> buscaFuncionarioDataContratacao();
+                case 4 -> pesquisaFuncionarioSalario();
                 default -> System.out.println("\n⚠️ Opção inválida!");
             }
             //break;
@@ -83,7 +92,10 @@ public class RelatoriosService {
     }
 
     private void pesquisaFuncionarioSalario(){
-
+        List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario(); //FuncionarioProjecao recebe através da @Query no Repositoy o que foi buscado no bando de dados
+        list.forEach(f -> System.out.println("Funcionário: id: " + f.getId()
+                + " | nome: " + f.getNome() + " | salario: " + f.getSalario()));
+        //Acima o forEach lista cada campo buscado no banco de dados que é cada metodo da interface FuncionarioProjecao
     }
 
 }
