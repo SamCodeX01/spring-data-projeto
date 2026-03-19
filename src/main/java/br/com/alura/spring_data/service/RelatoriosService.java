@@ -38,7 +38,6 @@ public class RelatoriosService {
                     2 - Buscar Funcionário por Nome e Data de Contratação: 
                     3 - Buscar Funcionário por Data de Contratação: 
                     4 - Pesquisa Funcionário Salário: 
-                    
                                         
                     Escolha: """);
 

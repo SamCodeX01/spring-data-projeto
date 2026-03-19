@@ -15,10 +15,11 @@ public class RelatorioFuncionarioDinamico {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void inical(Scanner scanner){
+    public void inicial(Scanner scanner){
         System.out.println("Digite o nome: ");
         String nome = scanner.next();
 
+        //Essa consulta irá retornar uma lista de funcionarios da base de dados(repository) e irá trazer algo que tenha algo parecido entre o inicio e o fim que o usuario digitar, tipo o like %% do sql
         List<Funcionario> funcionarios = funcionarioRepository.findAll(Specification.where(SpecificationFuncionario.nome(nome)));
     }
 }

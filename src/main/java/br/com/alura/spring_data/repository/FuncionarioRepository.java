@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepository extends PagingAndSortingRepository<Funcionario, Integer>, JpaSpecificationExecutor, JpaRepository<Funcionario, Integer> {
+public interface FuncionarioRepository extends PagingAndSortingRepository<Funcionario, Integer>, JpaSpecificationExecutor<Funcionario>, JpaRepository<Funcionario, Integer> {
     List<Funcionario> findByNome(String nome);
 
         @Query("select f from Funcionario f where f.nome = :nome and f.salario = >= salario and f.dataContratacao = :data ")
