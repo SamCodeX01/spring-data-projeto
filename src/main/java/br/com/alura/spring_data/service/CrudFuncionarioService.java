@@ -9,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -18,6 +21,7 @@ public class CrudFuncionarioService {
     //Atributos
     private Boolean system = true;
     private final FuncionarioRepository funcionarioRepository;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     //Construtor
     public CrudFuncionarioService(FuncionarioRepository funcionarioRepository) {
@@ -74,7 +78,7 @@ public class CrudFuncionarioService {
             funcionario.setNome(nome);
             funcionario.setCpf(cpf);
             funcionario.setSalario(salario);
-            funcionario.setDataContratacao(dataContratacao);
+            funcionario.setDataContratacao(LocalDate.parse(dataContratacao));
 
             funcionarioRepository.save(funcionario);
             System.out.println("Dados do Funcionário salvo com sucesso!");
@@ -102,7 +106,7 @@ public class CrudFuncionarioService {
                 funcionario.setNome(novoNome);
                 funcionario.setCpf(novoCpf);
                 funcionario.setSalario(novoSalario);
-                funcionario.setDataContratacao(novaDataContratacao);
+                funcionario.setDataContratacao(LocalDate.parse(novaDataContratacao));
 
                 funcionarioRepository.save(funcionario); // Aqui esta persistindo essa mudança no banco de dados.
 
